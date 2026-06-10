@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'super_secret_scavenger_key_2026')
 
 # Production Configuration: Uses PostgreSQL if available on host, otherwise fallback SQLite
-DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///scavenger_hunt.db')
+DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///scavenger_hunt_v2.db')
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
