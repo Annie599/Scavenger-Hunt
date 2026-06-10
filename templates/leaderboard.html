@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scavenger Hunt Leaderboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picocss@1/pico.min.css">
+    <style>
+        body { padding: 20px; background-color: #1a0933; color: white; }
+        main { max-width: 600px; margin: auto; }
+        .podium { display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 2rem; background: #2d1254; padding: 20px; border-radius: 10px; }
+        .rank { text-align: center; font-weight: bold; padding: 10px; width: 30%; border-radius: 5px; color: black;}
+        .gold { background: #ffd700; height: 100px; order: 2;}
+        .silver { background: #c0c0c0; height: 80px; order: 1;}
+        .bronze { background: #cd7f32; height: 60px; order: 3;}
+        tr:nth-child(even) { background-color: #251242; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1 style="text-align: center; color: #ff007f;">🏆 Live Leaderboard</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <mark class="{{ category }}">{{ message }}</mark>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% if players|length >= 1 %}
+        <div class="podium">
+            <div class="rank gold">🥇 1st<br>{{ players[0].username }}<br>{{ players[0].score }} pts</div>
+            {% if players|length >= 2 %}<div class="rank silver">🥈 2nd<br>{{ players[1].username }}<br>{{ players[1].score }} pts</div>{% endif %}
+            {% if players|length >= 3 %}<div class="rank bronze">🥉 3rd<br>{{ players[2].username }}<br>{{ players[2].score }} pts</div>{% endif %}
+        </div>
+        {% endif %}
+
+        <table>
+            <thead><tr><th>Rank</th><th>Competitor</th><th>Score</th></tr></thead>
+            <tbody>
+                {% for player in players %}
+                <tr><td><strong>{{ loop.index }}</strong></td><td>{{ player.username }}</td><td>{{ player.score }} pts</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
