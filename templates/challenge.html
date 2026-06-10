@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ challenge.title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picocss@1/pico.min.css">
+</head>
+<body style="padding:20px; background-color: #1a0933; color: white;">
+    <main style="max-width: 500px; margin: auto; text-align: center;">
+        <h1 style="color: #00ecff;">{{ challenge.title }}</h1>
+        <div style="background: #2d1254; padding: 30px; border-radius: 12px; margin-bottom: 20px;">
+            <p style="font-size: 1.3rem;">{{ challenge.content }}</p>
+            <p><strong>Worth:</strong> <span style="color: #ffd700;">{{ challenge.points }} points</span></p>
+        </div>
+
+        <form method="POST">
+            {% if challenge.type == 'question' %}
+                <input type="text" name="answer" placeholder="Type your answer here..." required>
+                <button type="submit" style="background: #ff007f; border:none;">Submit Answer</button>
+            {% else %}
+                <p style="color: #ffc107;">⚠️ Dares require verification! Do the action right now, then click complete!</p>
+                <input type="hidden" name="answer" value="completed_dare">
+                <button type="submit" style="background: #28a745; border:none;">I Successfully Completed the Dare! ✅</button>
+            {% endif %}
+        </form>
+    </main>
+</body>
+</html>
